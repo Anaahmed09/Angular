@@ -1,0 +1,51 @@
+<div class="container">
+  <form (submit)="login($event)" [formGroup]="loginForm">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Username</label>
+      <input
+        formControlName="user"
+        type="text"
+        name="username"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        [(ngModel)]="username"
+      />
+    </div>
+    <ng-container *ngIf="user.touched">
+      <div class="text-danger" *ngIf="user.hasError('required')">
+        Oops, This filed is required.
+      </div>
+      <div class="text-danger" *ngIf="user.hasError('minlength')">
+        Oops, Minimum length 5.
+      </div>
+      <div class="text-danger" *ngIf="user.hasError('pattern')">
+        Oops, This name contains numbers.
+      </div>
+    </ng-container>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input
+        formControlName="pass"
+        type="password"
+        name="password"
+        class="form-control"
+        id="exampleInputPassword1"
+        [(ngModel)]="password"
+      />
+    </div>
+    <ng-container *ngIf="pass.touched">
+      <div class="text-danger" *ngIf="pass.hasError('required')">
+        Oops, This filed is required.
+      </div>
+      <div class="text-danger" *ngIf="pass.hasError('minlength')">
+        Oops, Minimum length 8.
+      </div>
+    </ng-container>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

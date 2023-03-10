@@ -1,0 +1,80 @@
+<div class="container">
+  <form [formGroup]="productForm" (submit)="editProduct($event)">
+    <div class="mb-2 form-group">
+      <label class="mb-2" for="product-name">Product Name</label>
+      <input
+        formControlName="productName"
+        type="text"
+        class="form-control"
+        id="product-name"
+        placeholder="Enter product name"
+      />
+    </div>
+    <ng-container *ngIf="productName.touched">
+      <div class="text-danger" *ngIf="productName.hasError('required')">
+        Oops, This filed is required.
+      </div>
+      <div class="text-danger" *ngIf="productName.hasError('minlength')">
+        Oops, Minimum length 2.
+      </div>
+      <div class="text-danger" *ngIf="productName.hasError('pattern')">
+        Oops, This name contains numbers.
+      </div>
+    </ng-container>
+    <div class="mb-2 form-group">
+      <label class="mb-2" for="price">Price</label>
+      <input
+        formControlName="price"
+        type="number"
+        class="form-control"
+        id="price"
+        placeholder="Enter price"
+      />
+    </div>
+    <ng-container *ngIf="price.touched">
+      <div class="text-danger" *ngIf="price.hasError('required')">
+        Oops, This filed is required.
+      </div>
+      <div class="text-danger" *ngIf="price.hasError('min')">
+        Oops, Minimum price {{ 0.1 | currency : "EUR" }}
+      </div>
+    </ng-container>
+    <div class="mb-2 form-group">
+      <label class="mb-2" for="quantity">Quantity</label>
+      <input
+        formControlName="quantity"
+        type="number"
+        class="form-control"
+        id="quantity"
+        placeholder="Enter quantity"
+      />
+    </div>
+    <ng-container *ngIf="quantity.touched">
+      <div class="text-danger" *ngIf="quantity.hasError('required')">
+        Oops, This filed is required.
+      </div>
+      <div class="text-danger" *ngIf="quantity.hasError('min')">
+        Oops, Minimum quantity 1 .
+      </div>
+    </ng-container>
+    <div class="mb-2 form-group">
+      <label class="mb-2" for="image">Image</label>
+      <input
+        formControlName="img"
+        type="file"
+        (change)="onFileSelected($event)"
+        class="form-control"
+        id="image"
+        placeholder="Enter image"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">
+      {{ id === 0 ? "Add Product" : "Edit Product" }}
+    </button>
+    <ng-container *ngIf="messageError">
+      <p class="text-danger ms-5 mt-3">
+        {{ productForm.status === "INVALID" ? "Your Data INVALID" : "" }}
+      </p>
+    </ng-container>
+  </form>
+</div>
